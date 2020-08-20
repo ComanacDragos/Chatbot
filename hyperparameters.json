@@ -12,7 +12,6 @@
     "seq_length" : 25,
     "training_validation_split" : 0.15,
     "batch_index_check_training_loss" : 100,
-    "early_stopping_check" : 0,
     "early_stopping_stop" : 100,
     "checkpoint" : "./Weights/chatbot_weights_2"
 }

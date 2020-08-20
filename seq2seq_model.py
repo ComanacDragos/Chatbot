@@ -1,7 +1,5 @@
 from data_preprocessor import *
 import tensorflow as tf
-import time
-import numpy as np
 
 
 class Seq2SeqModel:
