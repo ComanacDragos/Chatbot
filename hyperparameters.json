@@ -1,0 +1,18 @@
+{
+    "epochs": 10,
+    "batch_size" : 32,
+    "rnn_size" : 1024,
+    "num_layers" : 3,
+    "encoding_embedding_size" : 1024,
+    "decoding_embedding_size" : 1024,
+    "learning_rate" : 0.001,
+    "learning_rate_decay" : 0.9,
+    "min_learning_rate" : 0.0001,
+    "keep_probability" : 0.5,
+    "seq_length" : 25,
+    "training_validation_split" : 0.15,
+    "batch_index_check_training_loss" : 100,
+    "early_stopping_check" : 0,
+    "early_stopping_stop" : 100,
+    "checkpoint" : "./Weights/chatbot_weights_2"
+}
