@@ -146,8 +146,6 @@ class Seq2SeqModel:
                                                          decoding_scope,
                                                          output_function)
         
-        
-        
 
 
 
