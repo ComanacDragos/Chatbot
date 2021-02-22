@@ -9,13 +9,11 @@ class Trainer:
         self.session = tf.InteractiveSession()
 
         self.model = model
-        
-        #Dimensiunea tensorului de inputuri
+
         self.input_shape = tf.shape(self.model.inputs)
         
         self.training_predictions, self.test_predictions = self.model.get_predictions()
 
-                
         with tf.name_scope("optimization"):
             self.loss_error = tf.contrib.seq2seq.sequence_loss(self.training_predictions,
                                                                self.model.targets,
@@ -31,7 +29,7 @@ class Trainer:
         
     def setup_data(self):
         """
-        Impart datele in cele pentru antrenare si cele pentru validare
+        Split the data in training data and validation data
         """
         training_validation_split = int(len(self.model.data.sorted_clean_questions) * self.model.params['training_validation_split'])
         
@@ -42,17 +40,11 @@ class Trainer:
         self.validation_answers = self.model.data.sorted_clean_answers[:training_validation_split]
 
     def apply_padding(self, batch_of_sequences):
-        """
-        Adauga simbolul <PAD> la finalul tuturor intrebarilor si raspunsurilor pentru a avea aceeasi lungime
-        """
         max_sequence_length = max([len(sequence) for sequence in batch_of_sequences])
 
         return [sequence + [self.model.data.questions_words2int['<PAD>']] * (max_sequence_length - len(sequence)) for sequence in batch_of_sequences]
 
     def split_into_batches(self, questions, answers):
-        """
-        Imparte intrebarile si raspunsurile in grupe de o anumita marime
-        """
         for batch_index in range(len(questions) // self.model.params['batch_size']):
             start_index = batch_index * self.model.params['batch_size']
             questions_in_batch = questions[start_index : start_index + self.model.params['batch_size']]
@@ -73,11 +65,6 @@ class Trainer:
         saver.restore(self.session, file)
 
     def start_train_loop(self):
-        """
-        Incepe bucla principala pe epoci
-        print_batch_data - variabila booleana : printeaza datele pentru fiecare batch daca este adevarat
-        """
-            
         batch_index_check_validation_loss = ((len(self.training_questions)) // self.model.params['batch_size'] // 2) - 1
 
         total_training_loss_error = 0
@@ -161,8 +148,6 @@ class Trainer:
             if early_stopping_check == self.model.params['early_stopping_stop']:
                 print("I can't speak better anymore")
                 break        
-    
-
 
         print("Finished training")
                                 
